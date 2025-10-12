@@ -215,8 +215,6 @@ if __name__ == '__main__':
     templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
     os.makedirs(templates_dir, exist_ok=True)
     
-    print("🚀 Phishing Detector Web Application Starting...")
-    print("📍 Access the application at: http://127.0.0.1:5000")
-    print("📊 Features: URL & Email analysis, Real-time detection, Beautiful UI")
-    
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # For Vercel deployment
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
