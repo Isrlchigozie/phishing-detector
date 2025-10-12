@@ -1,0 +1,348 @@
+{
+  "evaluation_report": {
+    "title": "Phishing Detection System Evaluation Report",
+    "timestamp": "2025-10-12T15:08:01.424210",
+    "summary": {
+      "total_tests": 17,
+      "correct_predictions": 15,
+      "accuracy": 0.8823529411764706,
+      "true_positives": 9,
+      "true_negatives": 6,
+      "false_positives": 0,
+      "false_negatives": 2,
+      "precision": 1.0,
+      "recall": 0.8181818181818182,
+      "f1_score": 0.9,
+      "url_accuracy": 1.0,
+      "email_accuracy": 0.7777777777777778,
+      "evaluation_timestamp": "2025-10-12T15:08:01.424210"
+    },
+    "detailed_results": [
+      {
+        "test_case": {
+          "input": "https://www.google.com",
+          "type": "url",
+          "expected": false,
+          "category": "legitimate"
+        },
+        "actual_result": false,
+        "confidence": 0.3999999917911483,
+        "risk_level": "VERY LOW",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.411964"
+      },
+      {
+        "test_case": {
+          "input": "https://www.github.com",
+          "type": "url",
+          "expected": false,
+          "category": "legitimate"
+        },
+        "actual_result": false,
+        "confidence": 0.3999999905537448,
+        "risk_level": "VERY LOW",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.413702"
+      },
+      {
+        "test_case": {
+          "input": "https://www.microsoft.com",
+          "type": "url",
+          "expected": false,
+          "category": "legitimate"
+        },
+        "actual_result": false,
+        "confidence": 0.3999999845457134,
+        "risk_level": "VERY LOW",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.413702"
+      },
+      {
+        "test_case": {
+          "input": "http://192.168.1.1/login",
+          "type": "url",
+          "expected": true,
+          "category": "phishing"
+        },
+        "actual_result": true,
+        "confidence": 0.8689036618266774,
+        "risk_level": "HIGH",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.413702"
+      },
+      {
+        "test_case": {
+          "input": "https://paypal-verify-account.com",
+          "type": "url",
+          "expected": true,
+          "category": "phishing"
+        },
+        "actual_result": true,
+        "confidence": 0.8683351847759626,
+        "risk_level": "HIGH",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.415911"
+      },
+      {
+        "test_case": {
+          "input": "http://amazon-security-update.xyz",
+          "type": "url",
+          "expected": true,
+          "category": "phishing"
+        },
+        "actual_result": true,
+        "confidence": 0.994069033258135,
+        "risk_level": "HIGH",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.415911"
+      },
+      {
+        "test_case": {
+          "input": "https://apple-id-verification.net",
+          "type": "url",
+          "expected": true,
+          "category": "phishing"
+        },
+        "actual_result": true,
+        "confidence": 0.5530933440113037,
+        "risk_level": "LOW",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.417533"
+      },
+      {
+        "test_case": {
+          "input": "https://secure-login-bank.com",
+          "type": "url",
+          "expected": true,
+          "category": "phishing"
+        },
+        "actual_result": true,
+        "confidence": 0.6244484868757434,
+        "risk_level": "MEDIUM",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.418230"
+      },
+      {
+        "test_case": {
+          "input": "support@google.com",
+          "type": "email",
+          "expected": false,
+          "category": "legitimate"
+        },
+        "actual_result": false,
+        "confidence": 0.20256755211651806,
+        "risk_level": "VERY LOW",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.418230"
+      },
+      {
+        "test_case": {
+          "input": "security@microsoft.com",
+          "type": "email",
+          "expected": false,
+          "category": "legitimate"
+        },
+        "actual_result": false,
+        "confidence": 0.21255067626425284,
+        "risk_level": "VERY LOW",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.419631"
+      },
+      {
+        "test_case": {
+          "input": "noreply@github.com",
+          "type": "email",
+          "expected": false,
+          "category": "legitimate"
+        },
+        "actual_result": false,
+        "confidence": 0.20994312819809005,
+        "risk_level": "VERY LOW",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.419631"
+      },
+      {
+        "test_case": {
+          "input": "security@paypal-security.net",
+          "type": "email",
+          "expected": true,
+          "category": "phishing"
+        },
+        "actual_result": true,
+        "confidence": 0.41116782775791894,
+        "risk_level": "LOW",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.419631"
+      },
+      {
+        "test_case": {
+          "input": "verify@amazon-account.com",
+          "type": "email",
+          "expected": true,
+          "category": "phishing"
+        },
+        "actual_result": true,
+        "confidence": 0.40732216222339657,
+        "risk_level": "LOW",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.419631"
+      },
+      {
+        "test_case": {
+          "input": "support@apple-verify.org",
+          "type": "email",
+          "expected": true,
+          "category": "phishing"
+        },
+        "actual_result": true,
+        "confidence": 0.41445843186700115,
+        "risk_level": "LOW",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.421868"
+      },
+      {
+        "test_case": {
+          "input": "update@microsoft-security.com",
+          "type": "email",
+          "expected": true,
+          "category": "phishing"
+        },
+        "actual_result": true,
+        "confidence": 0.4111240487261739,
+        "risk_level": "LOW",
+        "correct": true,
+        "timestamp": "2025-10-12T15:08:01.422387"
+      },
+      {
+        "test_case": {
+          "input": "Confirm Your Spot\nDon't let your immigration opportunity expire — secure your eligibility review now.",
+          "type": "email",
+          "expected": true,
+          "category": "phishing"
+        },
+        "actual_result": false,
+        "confidence": 0.20003290386199435,
+        "risk_level": "VERY LOW",
+        "correct": false,
+        "timestamp": "2025-10-12T15:08:01.422387"
+      },
+      {
+        "test_case": {
+          "input": "URGENT: Your account will be suspended!\nClick here to verify: http://secure-login-bank.com",
+          "type": "email",
+          "expected": true,
+          "category": "phishing"
+        },
+        "actual_result": false,
+        "confidence": 0.20657747012198402,
+        "risk_level": "VERY LOW",
+        "correct": false,
+        "timestamp": "2025-10-12T15:08:01.424210"
+      }
+    ],
+    "test_cases_used": [
+      {
+        "input": "https://www.google.com",
+        "type": "url",
+        "expected": false,
+        "category": "legitimate"
+      },
+      {
+        "input": "https://www.github.com",
+        "type": "url",
+        "expected": false,
+        "category": "legitimate"
+      },
+      {
+        "input": "https://www.microsoft.com",
+        "type": "url",
+        "expected": false,
+        "category": "legitimate"
+      },
+      {
+        "input": "http://192.168.1.1/login",
+        "type": "url",
+        "expected": true,
+        "category": "phishing"
+      },
+      {
+        "input": "https://paypal-verify-account.com",
+        "type": "url",
+        "expected": true,
+        "category": "phishing"
+      },
+      {
+        "input": "http://amazon-security-update.xyz",
+        "type": "url",
+        "expected": true,
+        "category": "phishing"
+      },
+      {
+        "input": "https://apple-id-verification.net",
+        "type": "url",
+        "expected": true,
+        "category": "phishing"
+      },
+      {
+        "input": "https://secure-login-bank.com",
+        "type": "url",
+        "expected": true,
+        "category": "phishing"
+      },
+      {
+        "input": "support@google.com",
+        "type": "email",
+        "expected": false,
+        "category": "legitimate"
+      },
+      {
+        "input": "security@microsoft.com",
+        "type": "email",
+        "expected": false,
+        "category": "legitimate"
+      },
+      {
+        "input": "noreply@github.com",
+        "type": "email",
+        "expected": false,
+        "category": "legitimate"
+      },
+      {
+        "input": "security@paypal-security.net",
+        "type": "email",
+        "expected": true,
+        "category": "phishing"
+      },
+      {
+        "input": "verify@amazon-account.com",
+        "type": "email",
+        "expected": true,
+        "category": "phishing"
+      },
+      {
+        "input": "support@apple-verify.org",
+        "type": "email",
+        "expected": true,
+        "category": "phishing"
+      },
+      {
+        "input": "update@microsoft-security.com",
+        "type": "email",
+        "expected": true,
+        "category": "phishing"
+      },
+      {
+        "input": "Confirm Your Spot\nDon't let your immigration opportunity expire — secure your eligibility review now.",
+        "type": "email",
+        "expected": true,
+        "category": "phishing"
+      },
+      {
+        "input": "URGENT: Your account will be suspended!\nClick here to verify: http://secure-login-bank.com",
+        "type": "email",
+        "expected": true,
+        "category": "phishing"
+      }
+    ]
+  }
+}

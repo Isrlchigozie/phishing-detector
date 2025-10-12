@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Detector - AI-Powered Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --danger: #e63946;
+            --safe: #2a9d8f;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            --transition: all 0.3s ease;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content Grid */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--light);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a08a0;
+            transform: translateY(-2px);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .results-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* Risk Level Indicators */
+        .risk-high {
+            border-left: 6px solid var(--danger);
+            background: linear-gradient(135deg, #fff5f5, #ffe6e6);
+        }
+
+        .risk-medium {
+            border-left: 6px solid var(--warning);
+            background: linear-gradient(135deg, #fff0f7, #ffe6f0);
+        }
+
+        .risk-low {
+            border-left: 6px solid #ffd166;
+            background: linear-gradient(135deg, #fff9e6, #fff2cc);
+        }
+
+        .risk-very-low {
+            border-left: 6px solid var(--safe);
+            background: linear-gradient(135deg, #f0fff4, #e6ffe6);
+        }
+
+        .risk-safe {
+            border-left: 6px solid var(--success);
+            background: linear-gradient(135deg, #f0f9ff, #e6f7ff);
+        }
+
+        /* Result Header */
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .result-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-icon {
+            font-size: 2rem;
+        }
+
+        .status-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .status-phishing {
+            color: var(--danger);
+        }
+
+        .status-safe {
+            color: var(--safe);
+        }
+
+        .confidence-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .confidence-high {
+            background: var(--danger);
+            color: white;
+        }
+
+        .confidence-medium {
+            background: var(--warning);
+            color: white;
+        }
+
+        .confidence-low {
+            background: #ffd166;
+            color: var(--dark);
+        }
+
+        .confidence-very-low {
+            background: var(--safe);
+            color: white;
+        }
+
+        /* Explanation Section */
+        .explanation-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .explanation-content {
+            background: var(--light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            white-space: pre-line;
+            line-height: 1.8;
+        }
+
+        /* Prevention Advice */
+        .advice-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .advice-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary);
+        }
+
+        .advice-icon {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-top: 2px;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .export-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .mb-20 { margin-bottom: 20px; }
+        .mt-20 { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-shield-alt"></i> Phishing Detector</h1>
+            <p>AI-Powered Security Analysis for URLs and Emails</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- URL Analysis Card -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-link card-icon"></i>
+                    <h2 class="card-title">URL Analysis</h2>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="urlInput">
+                        <i class="fas fa-globe"></i> Enter URL to Analyze
+                    </label>
+                    <input type="text" class="form-control" id="urlInput" 
+                           placeholder="https://example.com" autocomplete="off">
+                </div>
+                <button class="btn btn-primary btn-full" onclick="analyzeUrl()">
+                    <i class="fas fa-search"></i> Analyze URL
+                </button>
+            </div>
+
+            <!-- Email Analysis Card -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-envelope card-icon"></i>
+                    <h2 class="card-title">Email Analysis</h2>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="emailInput">
+                        <i class="fas fa-at"></i> Enter Email Content or Address
+                    </label>
+                    <textarea class="form-control" id="emailInput" 
+                              placeholder="Paste email content or enter email address..."
+                              autocomplete="off"></textarea>
+                </div>
+                <button class="btn btn-secondary btn-full" onclick="analyzeEmail()">
+                    <i class="fas fa-search"></i> Analyze Email
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <h3>Analyzing Content...</h3>
+            <p>Our AI system is examining the content for phishing indicators</p>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="results-card" id="resultsCard">
+                <!-- Results will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Export Section -->
+        <div class="export-section">
+            <button class="btn btn-primary" onclick="exportResults()">
+                <i class="fas fa-download"></i> Export Analysis Report
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2024 Phishing Detector | Final Year Project | AI-Powered Security System</p>
+        </div>
+    </div>
+
+    <script>
+        // Analysis Functions
+        async function analyzeUrl() {
+            const url = document.getElementById('urlInput').value.trim();
+            if (!url) {
+                alert('Please enter a URL to analyze');
+                return;
+            }
+
+            await performAnalysis('/analyze/url', { url: url });
+        }
+
+        async function analyzeEmail() {
+            const email = document.getElementById('emailInput').value.trim();
+            if (!email) {
+                alert('Please enter email content to analyze');
+                return;
+            }
+
+            await performAnalysis('/analyze/email', { email: email });
+        }
+
+        async function performAnalysis(endpoint, data) {
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    displayResults(result);
+                } else {
+                    throw new Error(result.error || 'Analysis failed');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        function displayResults(result) {
+            const resultsCard = document.getElementById('resultsCard');
+            const resultsSection = document.getElementById('resultsSection');
+            
+            // Determine risk class and status
+            const riskClass = `risk-${result.risk_level.toLowerCase().replace(' ', '-')}`;
+            const isPhishing = result.is_phishing;
+            const statusClass = isPhishing ? 'status-phishing' : 'status-safe';
+            const statusText = isPhishing ? 'PHISHING DETECTED' : 'SAFE';
+            const statusIcon = isPhishing ? 'fas fa-exclamation-triangle' : 'fas fa-check-circle';
+            const confidenceClass = `confidence-${result.risk_level.toLowerCase().replace(' ', '-')}`;
+
+            // Build results HTML
+            resultsCard.className = `results-card ${riskClass}`;
+            resultsCard.innerHTML = `
+                <div class="result-header">
+                    <div class="result-status">
+                        <i class="${statusIcon} status-icon ${statusClass}"></i>
+                        <span class="status-text ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="confidence-badge ${confidenceClass}">
+                        Confidence: ${(result.confidence * 100).toFixed(1)}%
+                    </div>
+                </div>
+
+                <div class="mb-20">
+                    <strong>Analyzed:</strong> ${result.input}
+                </div>
+
+                <div class="explanation-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-info-circle"></i> Analysis Explanation
+                    </h3>
+                    <div class="explanation-content">${result.explanation}</div>
+                </div>
+
+                <div class="explanation-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-exclamation-triangle"></i> Warning
+                    </h3>
+                    <div class="explanation-content" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+                        ${result.warning_message}
+                    </div>
+                </div>
+
+                <div class="explanation-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-shield-alt"></i> Prevention Advice
+                    </h3>
+                    <ul class="advice-list">
+                        ${result.prevention_advice.map(advice => `
+                            <li class="advice-item">
+                                <i class="fas fa-check-circle advice-icon"></i>
+                                <span>${advice}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <div class="text-center mt-20">
+                    <button class="btn btn-primary" onclick="analyzeAnother()">
+                        <i class="fas fa-redo"></i> Analyze Another
+                    </button>
+                </div>
+            `;
+
+            resultsSection.style.display = 'block';
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function analyzeAnother() {
+            // Clear inputs and hide results
+            document.getElementById('urlInput').value = '';
+            document.getElementById('emailInput').value = '';
+            document.getElementById('resultsSection').style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function exportResults() {
+            try {
+                const response = await fetch('/export');
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = `phishing_report_${new Date().toISOString().split('T')[0]}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                } else {
+                    throw new Error('Export failed');
+                }
+            } catch (error) {
+                alert('Error exporting results: ' + error.message);
+            }
+        }
+
+        // Enter key support
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') analyzeUrl();
+        });
+
+        // Initial focus
+        document.getElementById('urlInput').focus();
+    </script>
+</body>
+</html>
