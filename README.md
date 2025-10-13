@@ -5,11 +5,10 @@ A real-time web application that detects phishing URLs and emails using ensemble
 ![Phishing Detector](https://img.shields.io/badge/Accuracy-88.2%25-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Flask](https://img.shields.io/badge/Flask-2.3.3-lightgrey)
-![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black)
 
 ##  Live Demo
 
-**Access the live application:** [https://phishing-detector.vercel.app](https://phishing-detector.vercel.app)
+**Access the live application:** [https://isrlchiigozie.pythonanywhere.com/](https://isrlchiigozie.pythonanywhere.com/)
 
 ##  Performance Metrics
 
@@ -48,14 +47,14 @@ URL/Email    27+ Features    Ensemble Model  Color-coded Risk
 - **Frontend**: HTML5, CSS3, JavaScript
 - **Styling**: Modern CSS with gradients & animations
 - **Icons**: Font Awesome
-- **Deployment**: Vercel
+- **Deployment**: pythonanywhere
 - **Development**: VS Code
 
 ## Quick Start
 
 ### Test the Live Application
 
-1. Visit: [https://phishing-detector.vercel.app](https://phishing-detector.vercel.app)
+1. Visit: [https://isrlchiigozie.pythonanywhere.com/](https://isrlchiigozie.pythonanywhere.com/)
 2. **Test URLs**:
    - Safe: `https://www.google.com`
    - Phishing: `https://paypal-verify-account.com`
@@ -83,7 +82,6 @@ python app.py
 
 phishing-detector/
 ├── app.py                 # Main Flask application
-├── vercel.json           # Vercel deployment config
 ├── wsgi.py              # WSGI entry point
 ├── requirements.txt      # Python dependencies
 ├── src/                  # Core detection engine
