@@ -126,6 +126,6 @@ Comprehensive testing with 17 carefully curated test cases:
 
 📄 License
 
-MT
+MIT Licence
 
 Built with ❤️ by Li, using Python, Flask, and modern web technologies.
