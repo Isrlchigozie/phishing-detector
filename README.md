@@ -77,7 +77,7 @@ python app.py
 # 4. Access at: http://localhost:5000
 
 
-📁 Project Structure
+Project Structure
 
 
 phishing-detector/
@@ -124,8 +124,11 @@ Comprehensive testing with 17 carefully curated test cases:
 · Real-world examples including actual scam emails
 
 
-📄 License
-
+License
 MIT Licence
 
-Built with ❤️ by Li, using Python, Flask, and modern web technologies.
+Built using Python, Flask, and modern web technologies.
+
+Author 
+Li
+Royalty|Firebird 
